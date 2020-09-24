@@ -1,4 +1,12 @@
 import Link from 'next/link';
+import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button'
 
 const notes = [
   {
@@ -15,16 +23,33 @@ const notes = [
 export default function Notes() {
   return (
     <div>
-      <h1>Notes page</h1>
-      {notes.map(({ name }) => {
-        return (
-          <div>
-            <Link as={`/notes/${name}`} href="/notes/[note]">
-              <a>{name}</a>
-            </Link>
-          </div>
-        );
-      })}
+      <Typography variant="h4">Notes page</Typography>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Note name</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {notes.map(({ name }, i) => {
+              return (
+                <TableRow>
+                  <TableCell>
+                    <Link as={`/notes/${name}`} href="/notes/[note]">
+                      <a>{name}</a>
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="contained" color="secondary">Delete</Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
